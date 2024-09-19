@@ -14,9 +14,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.mbialowas.mvvm_basic_2024.data.MoviesViewModel
+import com.mbialowas.mvvm_basic_2024.screens.DisplayFavoriteMovies
+import com.mbialowas.mvvm_basic_2024.screens.MovieScreen
 import com.mbialowas.mvvm_basic_2024.ui.theme.MVVM_Basic_2024Theme
 
 class MainActivity : ComponentActivity() {
@@ -27,9 +31,12 @@ class MainActivity : ComponentActivity() {
             MVVM_Basic_2024Theme {
                 // now we can use the view model
                 val viewModel:AppViewModel = ViewModelProvider(this)[AppViewModel::class.java]
+                val movieViewModel: MoviesViewModel = ViewModelProvider(this)[MoviesViewModel::class.java]
 
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Counter(viewModel=viewModel, modifier = Modifier.padding(innerPadding))
+                    //Counter(viewModel=viewModel, modifier = Modifier.padding(innerPadding))
+                    MovieScreen(modifier = Modifier.padding(innerPadding), viewModel = movieViewModel)
+                    DisplayFavoriteMovies(movies = movieViewModel.movies)
                 }
             }
         }
